@@ -1,0 +1,54 @@
+
+======
+JIRA
+======
+
+-> JIRA software developed by Atlasian company
+
+-> JIRA is used for Project management.
+
+-> JIRA is also used for Bug reporting.
+
+-> Project Task assignment will happen in JIRA s/w only
+
+Note: JIRA is a paid software. We can use trail version of JIRA.
+
+
+
+URL to Loing : https://start.atlassian.com/
+
+
+
+
+1) What is SDLC ?
+2) What are SDLC phases ?
+3) Waterfall Methodology
+4) Agile Methodology
+5) Agile Terminology
+6) What is JIRA ?
+7) What is Backlog ?
+8) Who will create Story in Backlog ?
+9) What is Story Point ?
+10) How to create Sprint ?
+11) Task Assignment in JIRA 
+12) Task Status Change in JIRA
+13) How Create Bug in JIRA ?
+
+
+=====================================================
+Which Ticketing Tool you are using in your project ?
+=====================================================
+
+-> "Service Now" we are using as ticketing tool.
+
+-> To send software installations requests to IT team we will create tickets using Ticketing Tool.
+
+
+
+
+
+
+
+
+
+
