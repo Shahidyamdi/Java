@@ -1,0 +1,9 @@
+controller class 
+service i
+service impl class
+repos i
+login clas
+register class
+email utils
+student enquriy class
+
