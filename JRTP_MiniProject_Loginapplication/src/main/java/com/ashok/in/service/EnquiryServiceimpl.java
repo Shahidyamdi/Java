@@ -19,7 +19,7 @@ public class EnquiryServiceimpl implements EnquiryService {
 
 	@Override
 	public List<String> getCourseNames() {
-		return  null;
+		return  courserepo.save(null);
 	}
 
 	@Override
@@ -36,7 +36,6 @@ public class EnquiryServiceimpl implements EnquiryService {
 
 	@Override
 	public String addEnquiry(EnquiryForm form) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

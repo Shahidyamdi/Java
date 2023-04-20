@@ -22,7 +22,7 @@ public class UserDtlsEntity {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
-	private String userName;
+	private String name;
 
 	private String email;
 	private long phno;
