@@ -11,10 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "AIT_USER_DTLS")
 public class UserDtlsEntity {
 
@@ -23,7 +27,6 @@ public class UserDtlsEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
 	private String name;
-
 	private String email;
 	private long phno;
 	private String pwd;

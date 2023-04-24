@@ -28,11 +28,10 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public boolean signup(SignupForm form) {
-
-		/*
-		 * UserDtlsEntity user = userDtlsrepo.findByemail(form.getEmail()); if (user !=
-		 * null) { return false; }
-		 */
+		UserDtlsEntity user = userDtlsrepo.findByemail(form.getEmail());
+		if (user != null) {
+			return false;
+		}
 
 		UserDtlsEntity entity = new UserDtlsEntity();
 		BeanUtils.copyProperties(form, entity);
@@ -49,22 +48,60 @@ public class UserServiceimpl implements UserService {
 		StringBuffer body = new StringBuffer();
 		body.append("<h1> Use Below Temporary Password To Unlock Your Account</h1>");
 		body.append("Temporary Pwd " + temppwd);
-
+		body.append("<br/>");
+		body.append("<a href=\"http://localhost:8080/unlock?email=" + to + "\">Click here to Unlock Account..</a>");
 		emailUtility.sendEmail(to, subject, body.toString());
 
 		return true;
 	}
 
-	@Override
-	public boolean emailCheck(String email) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+//	@Override
+//	public String unlockAccount(UnlockForm form) {
+//
+//		UserDtlsEntity user = userRepo.findByEmail(form.getEmail());
+//		
+//		System.out.println(user);
+//		
+//		if(form.getTempPwd().equals(user.getPwd())) {
+//			
+//		if(form.getNewPwd().equals(form.getConfirmPwd())) {
+//		
+//			user.setPwd(form.getNewPwd());
+//			user.setAccStatus("UNLOCKED");
+//			
+//			userRepo.save(user);
+//			
+//			System.out.println(user);
+//			return "Account is Unlocked";
+//		}else {
+//			return "new password and Conform password not same";
+//			
+//		}
+//		
+//		}
+//		else {
+//			return "Temp password is incorrect ";
+//		}
+//			
+//	}
+//	
 
+	// second way (sir way)
 	@Override
-	public String unlock(UnlockForm form) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean unlock(UnlockForm form) {
+
+		UserDtlsEntity entity = userDtlsrepo.findByemail(form.getEmail());
+
+		if (entity.getPwd().equals(form.getTemporaryPwd())) {
+			entity.setPwd(form.getNewPwd());
+			entity.setAccStatus("UNLOCKED");
+			userDtlsrepo.save(entity);
+			return true;
+		} else {
+
+			return false;
+		}
+
 	}
 
 	@Override
