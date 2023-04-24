@@ -23,7 +23,14 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public String login(LoginForm form) {
-		return null;
+		UserDtlsEntity entity = userDtlsrepo.findByEmailAndPwd(form.getEmail(), form.getPwd());
+		if (entity == null) {
+			return "Invalid Credentials";
+		}
+		if (entity.getAccStatus().equals("LOCKED")) {
+			return "YOUR ACCOUNT LOCKED";
+		}
+		return "Success";
 	}
 
 	@Override
@@ -105,9 +112,17 @@ public class UserServiceimpl implements UserService {
 	}
 
 	@Override
-	public String forgotpwd(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean forgotpwd(String email) {
+		UserDtlsEntity entity = userDtlsrepo.findByemail(email);
+		if(entity==null) {
+			return false;
+		}
+		
+		String body ="Recover password";
+		String subject =" Your Pwd :: " +entity.getPwd();
+		
+		emailUtility.sendEmail(email, body, subject);
+		return true;
 	}
 
 }
