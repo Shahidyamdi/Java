@@ -1,5 +1,7 @@
 package com.ashok.in.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class UserServiceimpl implements UserService {
 	EmailUtility emailUtility;
 	@Autowired
 	PasswordUtility passwordUtility;
+	@Autowired
+	private HttpSession session;
 
 	@Override
 	public String login(LoginForm form) {
@@ -30,7 +34,9 @@ public class UserServiceimpl implements UserService {
 		if (entity.getAccStatus().equals("LOCKED")) {
 			return "YOUR ACCOUNT LOCKED";
 		}
-		return "Success";
+		
+		session.setAttribute("userId", entity.getUserId());
+		return "success";
 	}
 
 	@Override

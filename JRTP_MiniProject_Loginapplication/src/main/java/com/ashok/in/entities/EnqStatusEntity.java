@@ -1,6 +1,7 @@
 package com.ashok.in.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class EnqStatusEntity {
 
 	@Id
-
+	@GeneratedValue
 	private Integer statusid;
 	private String statusName;
 

@@ -14,7 +14,7 @@ public interface EnquiryService {
 
 	public DashboardResponse getDashboardResponse(Integer userId);
 
-	public String addEnquiry(EnquiryForm form);
+	public boolean saveEnquiry(EnquiryForm form);
 
 	public List<EnquiryForm> getEnquries(Integer userId, EnquirySearchCriteria criteria);
 

@@ -1,5 +1,7 @@
 package com.ashok.in.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	private HttpSession session;
+
 	@GetMapping("/login")
 	public String loginpage(Model model) {
 		model.addAttribute("loginForm", new LoginForm());
@@ -26,14 +31,16 @@ public class UserController {
 
 	@PostMapping("/login")
 	public String loginHandler(@ModelAttribute("loginForm") LoginForm loginform, Model model) {
+		System.out.println("-----------accountLogin---------- LoginFrm==" + loginform);
 		String status = userService.login(loginform);
+		System.out.println("-----------accountLogin---------- sLoginStatus==" + status);
 		if (status.contains("success")) {
 			return "redirect:/dashboard";
 
+		} else {
+			model.addAttribute("errmsg", status);
+			return "login";
 		}
-
-		model.addAttribute("errmsg", status);
-		return "login";
 	}
 
 	@GetMapping("/signup")
