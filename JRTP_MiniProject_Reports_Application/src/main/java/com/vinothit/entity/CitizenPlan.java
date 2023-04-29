@@ -28,5 +28,9 @@ public class CitizenPlan {
 	private String denialReason;
 	private LocalDate terminatedDate;
 	private String terminationReason;
+	public static String size() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

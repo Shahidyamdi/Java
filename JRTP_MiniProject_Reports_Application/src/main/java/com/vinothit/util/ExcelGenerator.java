@@ -2,16 +2,16 @@ package com.vinothit.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,56 +25,67 @@ public class ExcelGenerator {
 	CitizenPlanRepository citizenPlanRepo;
 
 	public void generate(HttpServletResponse response, List<CitizenPlan> records, File file) throws Exception {
-		Workbook workbook = new XSSFWorkbook(); // both .xlsx and .xls extensions
-		// Workbook workbook=new HSSFWorkbook(); // .xls extension only
+		System.out.println("a2.----------ExcelGenerator----------------------citizenPlans.size"+CitizenPlan.size());
+		HSSFWorkbook workbook = new HSSFWorkbook();
 
-		Sheet sheet = workbook.createSheet("plan-data");
-		Row headerRow = sheet.createRow(0);
+		Sheet sheet = workbook.createSheet("Citizen Plans");
+		Row rowhead = sheet.createRow(0);
 
-		headerRow.createCell(0).setCellValue("ID");
-		headerRow.createCell(1).setCellValue("Citizen Name");
-		headerRow.createCell(2).setCellValue("Plan Name");
-		headerRow.createCell(3).setCellValue("Plan Status");
-		headerRow.createCell(4).setCellValue("Plan Start Date");
-		headerRow.createCell(5).setCellValue("Plan End Date");
-		headerRow.createCell(6).setCellValue("Benefit Amount");
+		CellStyle style = workbook.createCellStyle();
+		HSSFFont font = workbook.createFont();
+		font.setFontHeight((short) 16);
+		style.setFont(font);
 
-		List<CitizenPlan> allRecords = citizenPlanRepo.findAll();
+		rowhead.createCell(0).setCellValue("S.No.");
+		rowhead.createCell(1).setCellValue("Citizen Name");
+		rowhead.createCell(2).setCellValue("Gender");
+		rowhead.createCell(3).setCellValue("Plan Name");
+		rowhead.createCell(4).setCellValue("Plan Status");
+		rowhead.createCell(5).setCellValue("Plan Start Date");
+		rowhead.createCell(6).setCellValue("Plan End Date");
+		rowhead.createCell(7).setCellValue("Amount");
 
-		int rowIndex = 1;
+		int planIndex = 1;
 
-		for (CitizenPlan plan : allRecords) {
-			Row dataRow = sheet.createRow(rowIndex);
-			dataRow.createCell(0).setCellValue(plan.getCitizenId());
-			dataRow.createCell(1).setCellValue(plan.getCitizenName());
-			dataRow.createCell(2).setCellValue(plan.getPlanName());
-			dataRow.createCell(3).setCellValue(plan.getPlanStatus());
+		for (CitizenPlan plan : records) {
+			Row rowData = sheet.createRow(planIndex);
+
+			rowData.createCell(0).setCellValue(plan.getCitizenId());
+			rowData.createCell(1).setCellValue(plan.getCitizenName());
+			rowData.createCell(2).setCellValue(plan.getGender());
+			rowData.createCell(3).setCellValue(plan.getPlanName());
+			rowData.createCell(4).setCellValue(plan.getPlanStatus());
 			if (plan.getPlanStartDate() != null) {
-				dataRow.createCell(4).setCellValue(plan.getPlanStartDate() + "");
+				rowData.createCell(5).setCellValue(plan.getPlanStartDate() + "");
 			} else {
-				dataRow.createCell(4).setCellValue("N/A");
+				rowData.createCell(5).setCellValue("NA");
 			}
+
 			if (plan.getPlanEndDate() != null) {
-				dataRow.createCell(5).setCellValue(plan.getPlanEndDate() + "");
+				rowData.createCell(6).setCellValue(plan.getPlanEndDate() + "");
 			} else {
-				dataRow.createCell(5).setCellValue("");
+				rowData.createCell(6).setCellValue("");
 			}
+
 			if (plan.getBenefitAmount() != null) {
-				dataRow.createCell(6).setCellValue(plan.getBenefitAmount());
+				rowData.createCell(7).setCellValue(plan.getBenefitAmount());
 			} else {
-				dataRow.createCell(6).setCellValue("N/A");
+				rowData.createCell(7).setCellValue("NA");
 			}
-
-			rowIndex++;
-
-			FileOutputStream fileOutputStream = new FileOutputStream(file);
-			workbook.write(fileOutputStream);
-			((FileOutputStream) workbook).close();
-			
-			ServletOutputStream outputStream = response.getOutputStream();
-			workbook.write(outputStream);
-			((FileOutputStream) workbook).close();
+			planIndex++;
 		}
-	}
+		System.out.println("y2.----------file.getName----------------------"+file.getName());
+		FileOutputStream fileOut = new FileOutputStream(new File(file.getName()));
+		workbook.write(fileOut);
+		fileOut.close();
+		//file.delete();
 
+		ServletOutputStream outputStream = response.getOutputStream();
+		workbook.write(outputStream);
+		outputStream.close();
+		
+		System.out.println("z2.----------ExcelGenerator----------------------");
+
+	}
 }
+ 

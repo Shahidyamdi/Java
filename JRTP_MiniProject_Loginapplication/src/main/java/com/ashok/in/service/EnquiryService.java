@@ -5,6 +5,7 @@ import java.util.List;
 import com.ashok.in.binding.DashboardResponse;
 import com.ashok.in.binding.EnquiryForm;
 import com.ashok.in.binding.EnquirySearchCriteria;
+import com.ashok.in.entities.StudentEnqEntity;
 
 public interface EnquiryService {
 
@@ -15,8 +16,8 @@ public interface EnquiryService {
 	public DashboardResponse getDashboardResponse(Integer userId);
 
 	public boolean saveEnquiry(EnquiryForm form);
+	public List<StudentEnqEntity> getEnquiries();
+	public List<StudentEnqEntity> getFilteredEnquiries(EnquirySearchCriteria criteria, Integer userId);
 
-	public List<EnquiryForm> getEnquries(Integer userId, EnquirySearchCriteria criteria);
 
-	public EnquiryForm getEnquiry(Integer enqId);
 }
