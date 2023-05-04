@@ -53,7 +53,7 @@ public class UserController {
 	public String handlesignup(@ModelAttribute("user") SignupForm form, Model model) {
 		boolean status = userService.signup(form);
 		if (status) {
-			model.addAttribute("Success", "Account Created ! check Your Mail");
+			model.addAttribute("Success", "Account Created ! ");
 		} else {
 			model.addAttribute("errmsg", " choose Unique Mail");
 
