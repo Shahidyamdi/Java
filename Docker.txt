@@ -6,12 +6,17 @@ Docker
 
 2) Why we need to go for Docker 
 
-3) Docker Architecture
+3) Docker Architecture (Dockerfile + Image + Registry + Container)
 
-4) Docker Setup
+4) Docker Setup in Linux VM (Ubuntu)
 
 5) Docker Commands
 
+6) Dockerizing Java web app (war)
+
+7) Dockerizing Spring Boot app (jar)
+
+8) Storing Docker image to docker hub
 
 
 -> Docker is a containerization software
@@ -85,12 +90,6 @@ Assignment : Dockerize Spring Boot Application
 ######  Spring Boot with Docker : https://youtu.be/iGz0cFwt5vI
 
 
-
-
-
-
-
-
 # display docker images available in our machine
 sudo docker images
 
@@ -116,16 +115,6 @@ sudo docker system prune -a
 
 # Run docker container in detached mode
 sudo docker run -d -p 9090:9090 ashokit/spring-boot-rest-api
-
-
-
-
-
-
-
-
-
-
 
 =============
 Dockerfile
@@ -167,9 +156,9 @@ ARG
 
 => COPY is used to copy the files from source to destination
 
-	COPY  target/sb-api.jar /usr/app/sb-api.jar
+	COPY target/sb-api.jar /usr/app/sb-api.jar
 
-	COPY   target/app.war  /usr/tomcat/webapps/app.war
+	COPY target/app.war  /usr/tomcat/webapps/app.war
 
 
 => ADD is used to copy the files from source to destination
@@ -195,6 +184,12 @@ ARG
 
 => ENTRYPOINT is used to execute instructions while creating container
 
+	Ex : ENTRYPOINT [ "java" "-jar" "sb-rest-api.jar" ]
+
+=> EXPOSE is used to specify container running port number
+
+	Ex : EXPOSE 9090
+
 
 => Create Dockerfile with below content 
 
@@ -208,20 +203,133 @@ CMD echo 'how are you'
 
 => Create Docker image using above docker file
 
+# Create Docker Image
 $ sudo docker build -t first-image .
 
-$ sudo docker build -t first-image -f <docker-file>
+# Tag Docker Image
+$ sudo docker tag <image-name> <tag-name>
+Ex : $ sudo docker tag first-image ashokit/first-image
+
+# Login into Docker Hub Account
+$ sudo docker login
+
+# Push Docker Image to Docker Hub
+$ sudo docker push <tag-name>
 
 
 
+======================================
+How to Dockerize Java Web Application
+======================================
+
+-> Java Web Application will be packaged as war file
+
+-> war file we will deploy in tomcat server webapps folder
+
+###  GIT repo : https://github.com/ashokitschool/maven-web-app.git
+
+-> Below is the Dockerfile to dockerize java web application
+
+
+FROM tomcat:8.0.20-jre8
+
+COPY target/01-maven-web-app*.war /usr/local/tomcat/webapps/maven-web-app.war
+
+EXPOSE 8080
 
 
 
+===========================================
+How to Dockerize Spring Boot Application
+===========================================
+
+-> Spring Boot application will be packaged as jar file
+
+-> To run Spring Boot application we need to run jar file
+
+-> Spring Boot provides embedded server for web applications
+
+## GIT Hub repo : https://github.com/ashokitschool/spring-boot-docker-app.git
+
+-> Below is the Dockerfile for Spring Boot Application
+
+FROM open-jdk:11
+
+COPY target/app.jar /usr/app/
+
+WORKDIR /usr/app/
+
+EXPOSE 8080
+
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
 
 
+==================
+Docker Compose
+==================
+
+=> Docker Compose is a tool which is used to manage multi-container based application.
+
+=> We can create multiple containers at a time by using Docker Compose.
+
+=> Using Docker Compose we can define dependencies among the containers
+
+	Ex: App Container Depends On DB Container
+
+=> We will provide containers information to Docker Compose tool using 
+  docker-compose.yml
+
+=> Docker Compose yml file contains below elements
+
+	version: It represents version number
+
+	services: It represents containers information
+
+	volumes: It represents storage
+
+	network: It represents connectivity
 
 
+# Create Docker Container using Docker Compose YML
 
+$ docker-compose up
+
+$ docker-compose down
+
+$ docker-compose stop
+
+$ docker-compose start
+
+$ docker-compose ps
+
+========================
+Docker Compose Setup
+========================
+
+# Download docker compose
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# Give permissions
+$ sudo chmod +x /usr/local/bin/docker-compose
+	
+# How to check docker compose is installed or not
+$ docker-compose --version
+
+===============================================================
+Execute Spring Boot App with MySQL DB using Docker Compose
+===============================================================
+
+# clone git repo
+git clone https://github.com/ashokitschool/spring-boot-mysql-docker-compose.git
+
+# package our application
+mvn clean package
+
+# Create Docker Image for Spring Boot Application
+sudo docker build -t spring-boot-mysql-app .
+
+# Create Containers using Docker Compose in detached mode
+sudo docker-compose up -d
 
 
 

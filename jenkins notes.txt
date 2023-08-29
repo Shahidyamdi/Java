@@ -1,174 +1,82 @@
-====================
-Performance Testing
-====================
+===========================
+What is Build & Deployment
+============================
 
-=> It is the process of testing application stability and responsiveness
+1) Take source code from git repo
 
+2) Compile & Package that code
 
-1) What is the behaviour of application when 1 user access it ?
+3) Perform Code Review
 
-2) What is the behaviour of application when 10 users access it ?
+4) Upload Build Artifact to Nexus
 
-3) What is the behaviour of application when 100 users access it ?
+5) Create Docker Image
 
-4) What is the behaviour of application when 1000 users access it ?
+6) Create Container
 
-4) What is the behaviour of application when 1 Lakh users access it ?
+==========================
+Application Environments
+==========================
 
-5) What is bottle neck of the application (failure point)
+1) DEV 
+2) SIT
+3) UAT
+4) PILOT
+5) PROD
 
-=> To provide application metrics to client first we need to prepare a report for that
 
-=> Test application performance and provide metrics to client
+=> Build and Deployment process in all these environments is difficult and time taking process.
 
+=> To avoid the challenges involved in Manual Build and Deployment process we are going for JENKINS.
 
-================
-Apache JMETER
-================
 
-=> JMETER is an open source and free software
+========
+Jenkins
+========
 
-=> JMETER s/w developed by Apache Org
+=> Jenkins is used to automate build and deployment process
 
-=> JMETER developed using Java langauge
+=> Jenkins is a CI CD software
 
-=> Using JMETER we can create Virtual users to implement Performance Testing
+=> CI CD means continuous integration & Continuous deployment
 
-=> JMETER is called as Performance Testing Tool.
+=> Jenkins Software developed by using Java language (To run jenkins java is mandatory).
 
-Note: Alternate for JMETER is HP Load Runner (commercial s/w)
+=> Jenkins Server Runs on Port : 8080
 
 
-####  Download JMETER S/w : https://jmeter.apache.org/download_jmeter.cgi
+===============
+Jenkins Setup
+===============
 
-=> Go to bin directory and execute "jmeter.bat" file
+1) Create Ubuntu VM in AWS Cloud
 
-===================
-Create JMETER Test
-===================
+2) Connect to Ubuntu VM using MobaXterm
 
-1) Create Test Plan
+$ curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 
-2) Create Thread Group inside Test Plan
+$ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+$ sudo apt-get update
+  
+$ sudo apt-get install fontconfig openjdk-11-jre
+  
+$ sudo apt-get install jenkins
 
-3) Create Sampler (Http Request) inside thread group
+$ sudo apt-get update
 
-4) Add Listeners in Thread Group
+$ sudo apt-get install jenkins
 
-		-> View Results Tree
-		-> Summary report
 
+Note: Enable 8080 port number in security group
 
+=> Access Jenkins Server using below URL
 
+	URL : http://public-ip:8080/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-====================
-Performance Testing
-====================
-
-=> It is the process of testing application stability and responsiveness
-
-
-1) What is the behaviour of application when 1 user access it ?
-
-2) What is the behaviour of application when 10 users access it ?
-
-3) What is the behaviour of application when 100 users access it ?
-
-4) What is the behaviour of application when 1000 users access it ?
-
-4) What is the behaviour of application when 1 Lakh users access it ?
-
-5) What is bottle neck of the application (failure point)
-
-=> To provide application metrics to client first we need to prepare a report for that
-
-=> Test application performance and provide metrics to client
-
-
-================
-Apache JMETER
-================
-
-=> JMETER is an open source and free software
-
-=> JMETER s/w developed by Apache Org
-
-=> JMETER developed using Java langauge
-
-=> Using JMETER we can create Virtual users to implement Performance Testing
-
-=> JMETER is called as Performance Testing Tool.
-
-Note: Alternate for JMETER is HP Load Runner (commercial s/w)
-
-
-####  Download JMETER S/w : https://jmeter.apache.org/download_jmeter.cgi
-
-=> Go to bin directory and execute "jmeter.bat" file
-
-===================
-Create JMETER Test
-===================
-
-1) Create Test Plan
-
-2) Create Thread Group inside Test Plan
-
-3) Create Sampler (Http Request) inside thread group
-
-4) Add Listeners in Thread Group
-
-		-> View Results Tree
-		-> Summary report
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+=====================================================================================================
 
 
