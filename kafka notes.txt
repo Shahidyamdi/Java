@@ -1,213 +1,318 @@
-============
-Kubernetes
-============
+==============
+Apache Kafka
+==============
 
-Docker : Containerization
+=> Apache Kafka is a distributed streaming platform
 
-=> Containerization means packaging our "application + dependencies" as single unit for execution.
+=> Apache Kafka is called as Message Broker
 
-Kubernetes / Open Shift : Orchestration
+=> Apache Kafka is used to process real time data feeds with high throughput and low latency
 
-=> Orchestration means managing containers 
-       (Create / Stop / Update / Delete / Scale Up / Scale Down / Monitor)
+	Ex : flights data, sensors data, stocks data, news data, social media etc....
 
--> Kubernetes is also called as K8S
+=> Kafka works based on Publisher and Subscriber model
 
--> Kubernetes developed by Google and donated to CNCF.
+===================
+Kafka Terminology
+===================
+Zookeeper
+Kafka Server
+Kafka Topic
+Message
+Publisher
+Subscriber
 
--> Kubernetes developed by using GO programming language
-
--> Using K8S we can orchestrate (manage) Docker containers
-
--> K8S will follow Cluster Architecture
-
-Note: Cluster means group of servers
-
-Master Node : It will control worker nodes and will assign task to worker nodes
-
-Note: In K8S cluster, Master Node is also called as Control Plane.
-
-Worker Nodes : They will listen to master node and will perform task given by master node.
-
-Note: Containers creation will happen on Worker Nodes.
+===========
+Kafka APIs
+===========
+Connector API
+Publisher API
+Subscriber API
+Streams API
 
 
-====================================
-Kubernetes Architecture Components
-====================================
+========================================
+Spring Boot + Apache Kafka Application
+=======================================
 
-1) Control Plane
+Step-1 : Download Zookeeper from below URL
+
+   URL : http://mirrors.estointernet.in/apache/zookeeper/stable/
+
+Step-2 : Download Apache Kafka from below URL
+
+   URL : http://mirrors.estointernet.in/apache/kafka/
+
+Step-3 : Set Path to ZOOKEEPER in Environment variables upto bin folder
+
+### Note: Copy zookeeper.properties and server.properties files from kafka/config folder to kafka/bin/windows folder. ###
+
+Step-4 : Start Zookeeper server using below command from kafka/bin/windows folder
+
+    Command : zookeeper-server-start.bat zookeeper.properties
+
+Step-5: Start Kafka Server using below command from Kakfa folder
+
+    Command : kafka-server-start.bat server.properties
+
+Step-6 : Create Kakfa Topic using below command from kafka/bin/windows folder
+
+Command : kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic amazon_orders_topic
+
+Step-7 : View created Topics using below command
+
+      Command : kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
+
+##############################
+Kafka Producer App Development
+##############################
+
+
+=============================
+1) Add below dependencies
+=============================
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	
-	1.1) API Server
-	1.2) Schedular
-	1.3) Controller Manager
-	1.4) ETCD
+	
+	
+================================
+2) Create Kafka Constants class 
+================================
 
-2) Worker Node
+public class AppConstants {
 
-	2.1) Kubelet
-	2.2) Kuby Proxy
-	2.3) POD
-	2.4) Container
-	2.5) Docker Engine
+	public static final String TOPIC = "ashokit_order_topic";
+	public static final String HOST = "localhost:9092";
 
+}
 
-=> To deploy applications in k8s cluster we will use 'kubectl' (CLI)
+=======================================
+3) Create Model class to represent data
+=======================================
+@Data
+public class Order {
 
-=> 'API Server' will recieve request from 'kubectl' and will store in 'etcd'
+	private String id;
+	private Double price;
+	private String email;
+	
+}
 
-=> 'etcd' is k8s database which is used to store requests details
+=======================================	
+4) Create Kafka Producer Config class 
+=======================================
 
-=> Schedular will check pending requets in 'etcd' and will talk to 'kubelet' to schedule POD creation.
+@Configuration
+public class KafkaProduceConfig {
 
-=> 'Controller-Manager' will manage tasks in K8S cluster.
+	@Bean
+	public ProducerFactory<String, Order> producerFactory() {
 
-=> 'Kubelet' is worker node agent which will maintain worker node information
+		Map<String, Object> configProps = new HashMap<>();
 
-=> 'Kube-proxy' will provide network that is requied for cluster communication
+		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, AppConstants.HOST);
+		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
-=> POD is a smallest building block that we can deploy in K8S cluster
+		return new DefaultKafkaProducerFactory<>(configProps);
+	}
 
-=> In K8S, docker containers will be created inside POD.
+	@Bean
+	public KafkaTemplate<String, Order> kafkaTemplate() {
+		return new KafkaTemplate<>(producerFactory());
+	}
 
-Note: POD is also called as Runtime Instance in K8S cluster.
-
-
-===================
-K8S cluster Setup
-===================
-
-=> We have several ways to setup K8S cluster
-
-
-1) Mini Kube : Single Node Cluster (Only for practice)
-
-2) Self Managed Cluster (Kubeadm) : Multi Node Cluster
-
-3) Provider Managed Cluster : AWS EKS, AZURE AKE, GCP GKE
-
-
-=======================
-EKS Cluster Setup : 
-=======================
-
-https://github.com/ashokitschool/DevOps-Documents
-
-=======================
-Kubernetes Components
-=======================
-
-1) POD
-
-2) Deployment
-
-3) Service  : It is used to expose our PODS
-
-		1) Cluste IP
-		2) Node Port
-		3) Load balancer
-
-
-=========================
-Deployment manifest yml
-=========================
-
-$ vi javadeployment.yml
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: javawebappdeployment
-spec:
-  replicas: 2
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      app: javawebapp
-  template: 
-    metadata:
-      name: javawebapppod
-      labels:
-        app: javawebapp
-    spec:
-      containers:
-      - name: javawebappcontainer
-        image: ashokit/javawebapp
-        ports:
-          - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: javaweappsvc
-spec:
-  type: LoadBalancer
-  selector:
-    app: javawebapp
-  ports:
-    - port: 80
-      targetPort: 8080
-...
-
-
+}
 
 ============================
+4) Create Service Class 
+============================
 
-kubectl apply -f <yml>
+@Service
+public class OrderService {
 
-kubectl get pods
+	@Autowired
+	private KafkaTemplate<String, Order> kafkaTemplate;
 
-kubectl get service
+	public String addMsg(Order order) {
 
-kubectl logs <pod-name>
+		// publish msg to kafka topic
+		kafkaTemplate.send(AppConstants.TOPIC, order);
 
-kubectl get deployment
-
-=========================================================
-We can access our application using Load balancer URL
-
-URL : lbr-url/java-web-app
-
-==============================================================
-Logs Monitoring using EFK  : https://youtu.be/8MLcbbfEL1U
-==============================================================
+		return "Msg Published To Kafka Topic";
+	}
+}
 
 
-===========
-EFK Stack
-===========
+=================================
+5) Create RestController classs
+==============================
 
-E - Elastic Search
+@RestController
+public class OrderRestController {
 
-F - Fluent D
+	@Autowired
+	private OrderService service;
 
-K - Kibana
+	@PostMapping("/order")
+	public String createOrder(@RequestBody Order order) {
+		String msg = service.addMsg(order);
+		return msg;
+	}
 
-
--> Fluent D is responsible to collect logs from PODS and store into Elastic Search.
-
--> Elastic Search is a log lake in which logs will be stored and it will index logs for faster retrival.
-
--> Kibana is web application which provides user interface to fetch logs from Elastic Search.
-
-
-Git Repo For EFK Setup YMLS : https://github.com/ashokitschool/kubernetes_manifest_yml_files/tree/main/04-EFK-Log
+}
 
 
+#################################
+Kafka Subscriber App Development
+#################################
 
-===================
-Delete EKS Cluster
-===================
+==========================
+1) Add below dependencies
+==========================
 
-$ eksctl delete cluster --name ashokit-cluster1 --region ap-south-1
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+==========================
+2) Create Constants class
+=========================
 
 
+public class KafkaConstants {
+
+	public static final String TOPIC = "ashokit_order_topic";
+	public static final String HOST = "localhost:9092";
+
+}
+
+===============================
+3) Create Model class
+===============================
+
+@Data
+public class Order {
+
+	private String id;
+	private Double price;
+	private String email;
+
+}
 
 
+===================================
+4) Create Consumer Config
+===================================
+
+@Configuration
+public class KafkaConsumerConfig {
+
+	@Bean
+	public ConsumerFactory<String, Order> consumerFactory() {
+
+		Map<String, Object> configProps = new HashMap<String, Object>();
+
+		configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, AppConstants.HOST);
+		configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+
+		return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(), new JsonDeserializer<>());
+
+	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, Order> kafkaListnerFactory() {
+
+		ConcurrentKafkaListenerContainerFactory<String, Order> factory = 
+				new ConcurrentKafkaListenerContainerFactory<>();
+
+		factory.setConsumerFactory(consumerFactory());
+
+		return factory;
+	}
+
+}
+============================================
+5) Add below method in boot app start class
+============================================
+
+@KafkaListener(topics = AppConstants.TOPIC, groupId="group_ashokit_order")
+public void subscribeMsg(String order) {
+		System.out.print("*** Msg Recieved From Kafka *** :: ");
+		System.out.println(order);
+	//logic
+}
+
+=========================
+6) Run the application
+=========================
+
+####### Send Request to Producer app and observer Subscriber app console  ############
 
 
-
-
-
+{
+    "id" : "OD101",
+    "price" : 200.00,
+    "email" : "smith@gmail.com"
+}
