@@ -210,6 +210,8 @@ $ git commit -m 'commit-msg'
 $ git branch -M main
 $ git remote add origin <repo-url>
 $ git push -u origin master
+$ git push -u origin head
+
 
 --------------------------------------------------------------------------------------------------------------------
 
