@@ -1,0 +1,5 @@
+package com.shahid.repo;
+
+public class ProductRepository {
+
+}

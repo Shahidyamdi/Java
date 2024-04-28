@@ -1,0 +1,5 @@
+package com.shahid.model;
+
+public class Product {
+
+}

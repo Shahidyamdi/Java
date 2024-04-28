@@ -1,0 +1,32 @@
+package com.shahid.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+@Controller
+public class profileController {
+	@Autowired
+	private profileService profileService;
+	@GetMapping("/")
+	public String showHomePage(Model model) {
+	List<Profile> profiles = profileService.getProfiles();
+	model.addAttribute("profiles", profiles);
+	return "index";
+	}
+	@PostMapping("/upload")
+	public String uploadMultipleFiles(@RequestParam("name") String name, 
+	@RequestParam("email") String email,
+	@RequestParam("mobile") String mobile, 
+	@RequestParam("file") MultipartFile file) {
+	Profile profile = new Profile();
+	profile.setName(name);
+	profile.setEmail(email);
+	profile.setMobile(mobile);
+	profileService.saveProfile(profile, file);
+	return "redirect:/";
+
+}
