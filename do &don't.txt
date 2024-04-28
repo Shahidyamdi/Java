@@ -1,0 +1,123 @@
+===============================
+Do's and Don'ts In IT Company
+===============================
+
+
+===========
+Don't s
+===========
+
+-> We should not send any emails from company mail to personal gmail with project information.
+
+	Ex: BRD, FDD, Test Cases, Bug Reports etc..
+
+-> If you send project/client information to your personal mail then you will loose your job.
+
+-> Don't open social media sites in office system because everything will be tracked in office system by networking team.
+
+	Ex : Facebook, Gmail etc..
+
+-> You should not discuss your package (salary) with anybody in the company and you shouldn't ask anybody about their salary.
+
+-> If you get the job with fake experience don't tell to anybody about your fake experience in the company.
+
+-> Don't connect Hard Disc / Pendrive to office laptops.
+
+=====================
+Do's
+=====================
+
+-> You should be good team player ( You should have good rapo with all team members )
+
+-> For every one month setup one-to-one meeting with your lead & manager to discuss about your work performance and discuss about improvements to get into next level.
+
+-> Declare your investments in HR portal for Tax deductions (Talk to CA)
+
+-> Declare your's and your family memebers details in Insurance Portal (Talk to Insurance Dept in Company)
+
+-> Every month payslip you can send from office mail to personal gmail
+
+-> Every Year Form-16 will be generated that you can send to your personal gmail.
+
+-> If you have long leave plan, take permission from your lead / manager one month in advance (vacation / marriage)
+
+
+
+
+
+=====================
+Joining Formalities
+=====================
+
+-> On the day of joining in the company 'On Boarding HR' will assit you to complete all joining formalities
+
+-> Employment documents we have to fill up
+
+-> Collect Laptop from IT department
+
+-> Collect Salary Account from Bank Representative team.
+
+-> Enter your salary account details in HR portal.
+
+-> Collect ID card from Badge Department.
+
+Note: Attend Company Induction program to know more about company rules & policies.
+
+-> After joining formalities are completed interact with 'Resource Manager' to get the project in the company.
+
+-> Resource Manager find sutiable project for your skillset and they will schedule meeting with Project Manager.
+
+-> Once Project Interview got completed you will be allocated to project.
+
+-> Once you got allocated to project, they will provide KT (Knowledge Transfer)
+
+-> After KT got completed, they will assign work to you.
+
+
+Note: In few projects intially they will assign "Code Reveiw / Sonar Issues Fixing / Unit Testing" etc
+
+=====================
+Exit Formalities
+=====================
+
+-> Once you got offer letter from another company setup one-to-one meeting with your manager and tell him/her that you are planning to resign.
+
+-> Manager will ask the reason for the resign (Tell that you got good offer with better package for carreer growth)
+
+-> Manager may ask you to stay back in the same company (He will tell some benefits)
+
+-> After discussion completed with manager, then resign in HR portal.
+
+-> Once you resign you will get mail from HR team with last working date.
+
+-> While serving Notice period we should not take any leave.
+
+-> While serving notice period we have to hand over all our work to existing team members
+
+-> Provide KT to team members
+
+	Note: While serving notice period we can cancel our Resignition.
+
+-> On last working date send email to all the team members with Good Bye message
+
+-> Submit your ID card, Laptop and all company belongings to respective team.
+
+-> Once your last working date is completed with in 30 days company will do 'Full and Final Settlement' and will send salary, experience certificate and reliving letter to your email.
+
+--------------------------------------------------------------------------------------------------------------
+
+
+Initial Docs
+------------
+Offer letter
+3 months payslips
+Hike letters
+Company Email ID
+
+Once you got selected in the company, you have to share above docs to company to get offer letter.
+
+-> At the time of joining / after joining they will ask you to submit 
+   "Reliving Letter & Experience Letter".
+
+Note: Consultancy person will provide all required documents.
+-------------------------------------------------------------------------------------------------------

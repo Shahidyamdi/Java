@@ -1,0 +1,107 @@
+1) Maven -> Build Tool
+
+2) Git Hub -> Version Control Software
+
+3) Bit Bucket -> Version Control Software
+
+4) Log4J -> Logging
+
+5) Log Monitoring -> Reading Log msgs from log file
+
+					- Putty
+					- WinScp
+					- ELK
+					- Splunk
+
+6) Postman -> API Testing Tool
+
+7) Swagger & Swagger UI -> To generete API documentation
+
+8) SonarQube -> Code Review
+
+			- Bugs
+			- Vulnerabilities
+			- Code Smells
+			- Duplicate Code
+			- Code Coverage
+
+9) Agile with JIRA (Project management)
+
+10) How to read YML file data into Java class
+
+11) How to send Email using Spring Boot
+
+12) Spring Boot with Ajax calls
+
+13) Mini Projects
+	
+		13.1 ) Reports Application
+
+					- Dynamic Search (QBE)
+					- Excel Report (POI API)
+					- PDF Report (OpenPdf api)
+
+		13.2) Employee Portal
+	
+					 - Carousel
+					 - Registration
+					 - Unlock
+					 - Login
+					 - Dashboard
+					 - Add Enquiry
+					 - View Enquiries
+					 - Forgot Pwd
+
+		13.3) Blog App
+
+					- Home Page
+					- View Blog Page
+					- Registration
+					- Login
+					- Dashboard
+					- Add/View/Edit/Delete Blog
+					- Add/View/Delete Comments
+
+14) Database Analysis
+
+15) Java Components Analysis
+
+=====================================
+
+1) Implementation Pwd Encryption in Blog app
+
+==========================================
+
+1) Singleton Design Pattern
+
+2) How HashMap works internally
+
+3) Fail safe and fail fast collections
+
+4) What is Constructor Chaining
+
+5) What are the methods available in Object class?
+
+6) How many ways we can create Object for class in java ?
+
+===============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

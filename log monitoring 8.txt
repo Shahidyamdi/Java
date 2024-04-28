@@ -1,0 +1,92 @@
+
+================
+Log Monitoring
+================
+
+=> It is the process of checking logs of application to understand problems occuring in  the application.
+
+=> We have several tools to perform log monitoring
+
+1) Putty
+2) WinSCP
+3) ELK
+4) Splunk
+
+======
+Putty
+=======
+
+=> Putty is a CLI based software
+
+=> It is used to connect from windows machine to Linux Machine
+
+=> To connect to linux machine we need machine details
+
+		IP : 192.168.1.2
+
+		Username : loguser
+
+		pwd : log@123
+
+================
+Putty Commands
+===============
+
+cat filename   : Get file data from top to bottm
+
+head filename : To get first 10 lines of file
+
+tail filename : To get last 10 lines of file
+
+grep 'Exception' filename : It will print the lines which contains Exception
+
+
+========
+WinScp
+========
+
+=> It is GUI based software
+
+=> It is used to connect from windows to linux machines
+
+=> Using this WinSCP we can upload and download files from windows to linux and vice versa
+
+=======
+Splunk
+=======
+=> It is commercial log monitoring software.
+
+====
+ELK
+=====
+
+E - Elastic Search
+
+L - Log Stash
+
+K - Kibana
+
+=> The above 3 open source products are used for log monitoring.
+
+
+
+
+
+1) Maven
+2) Git Hub
+3) Bit Bucket
+4) JIRA
+5) Logging Tools (LogBack)
+6) Log Monitoring Tools (Putty, WinScp and Splunk)
+
+
+
+
+
+
+
+
+
+
+
+
