@@ -19,7 +19,7 @@ public class ProductRestController {
 
 	@Autowired
 	ProductRepository repository;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductRestController.class);
 
 	@RequestMapping(value = "/products/", method = RequestMethod.GET)
@@ -29,7 +29,7 @@ public class ProductRestController {
 
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
 	public Product getProduct(@PathVariable("id") int id) {
-		LOGGER.info("Finding product by ID:"+id);
+		LOGGER.info("Finding product by ID:" + id);
 		return repository.findById(id).get();
 	}
 
